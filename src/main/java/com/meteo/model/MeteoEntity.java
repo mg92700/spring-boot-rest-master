@@ -4,6 +4,7 @@ package com.meteo.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
@@ -45,6 +46,12 @@ public class MeteoEntity {
     @NotNull
     private String temp2m;
 
+    @NotEmpty
+    @NotNull
+    private LocalDateTime dateSaving;
+
+
+
     public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m) {
         this.probarain = probarain;
         this.probafrost = probafrost;
@@ -53,6 +60,7 @@ public class MeteoEntity {
         this.probawind100 = probawind100;
         this.tsoil1 = tsoil1;
         this.temp2m = temp2m;
+        dateSaving=LocalDateTime.now();
         id= count.incrementAndGet();
     }
 
@@ -118,5 +126,13 @@ public class MeteoEntity {
 
     public void setTemp2m(String temp2m) {
         this.temp2m = temp2m;
+    }
+
+    public LocalDateTime getDateSaving() {
+        return dateSaving;
+    }
+
+    public void setDateSaving(LocalDateTime dateSaving) {
+        this.dateSaving = dateSaving;
     }
 }

@@ -2,7 +2,7 @@ package com.meteo.controllers;
 
 import com.meteo.model.UserEntity;
 import com.meteo.repository.UserRepository;
-import com.meteo.services.UsersService;
+import com.meteo.services.user.UsersService;
 import com.meteo.utils.ExceptionResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

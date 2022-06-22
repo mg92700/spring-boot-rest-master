@@ -1,4 +1,4 @@
-package com.meteo.services;
+package com.meteo.services.user;
 
 
 import com.meteo.model.UserEntity;
