@@ -49,7 +49,7 @@ public class MeteoEntity {
 
     private LocalDateTime datesaving;
 
-    public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m, LocalDateTime datesaving) {
+    public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m) {
         this.probarain = probarain;
         this.probafrost = probafrost;
         this.probafog = probafog;
@@ -57,7 +57,7 @@ public class MeteoEntity {
         this.probawind100 = probawind100;
         this.tsoil1 = tsoil1;
         this.temp2m = temp2m;
-        this.datesaving = datesaving;
+        this.datesaving = LocalDateTime.now();;
         id = count.incrementAndGet();
     }
 
