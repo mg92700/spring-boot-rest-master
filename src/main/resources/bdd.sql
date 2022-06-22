@@ -22,3 +22,6 @@ CREATE TABLE `meteo`.`meteo` (
   `temp2m` VARCHAR(45) NOT NULL DEFAULT 'Température à 2 mètres en °C',
   PRIMARY KEY (`id`));
 
+  ALTER TABLE `meteo`.`meteo`
+  ADD COLUMN `dateSaving` DATETIME NOT NULL AFTER `temp2m`;
+
