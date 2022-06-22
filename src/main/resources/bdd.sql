@@ -23,5 +23,5 @@ CREATE TABLE `meteo`.`meteo` (
   PRIMARY KEY (`id`));
 
   ALTER TABLE `meteo`.`meteo`
-  ADD COLUMN `dateSaving` DATETIME NOT NULL AFTER `temp2m`;
+  ADD COLUMN `datesaving` DATETIME NOT NULL AFTER `temp2m`;
 

@@ -1,6 +1,7 @@
 package com.meteo.services.meteo;
 
 import com.meteo.model.MeteoEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -46,13 +46,10 @@ public class MeteoEntity {
     @NotNull
     private String temp2m;
 
-    @NotEmpty
-    @NotNull
-    private LocalDateTime dateSaving;
 
+    private LocalDateTime datesaving;
 
-
-    public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m) {
+    public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m, LocalDateTime datesaving) {
         this.probarain = probarain;
         this.probafrost = probafrost;
         this.probafog = probafog;
@@ -60,9 +57,22 @@ public class MeteoEntity {
         this.probawind100 = probawind100;
         this.tsoil1 = tsoil1;
         this.temp2m = temp2m;
-        dateSaving=LocalDateTime.now();
-        id= count.incrementAndGet();
+        this.datesaving = datesaving;
+        id = count.incrementAndGet();
     }
+
+    public MeteoEntity(long id, String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m, LocalDateTime datesaving) {
+        this.id = id;
+        this.probarain = probarain;
+        this.probafrost = probafrost;
+        this.probafog = probafog;
+        this.probawind70 = probawind70;
+        this.probawind100 = probawind100;
+        this.tsoil1 = tsoil1;
+        this.temp2m = temp2m;
+        this.datesaving = datesaving;
+    }
+    public MeteoEntity(){}
 
     public long getId() {
         return id;
@@ -128,11 +138,11 @@ public class MeteoEntity {
         this.temp2m = temp2m;
     }
 
-    public LocalDateTime getDateSaving() {
-        return dateSaving;
+    public LocalDateTime getDatesaving() {
+        return datesaving;
     }
 
-    public void setDateSaving(LocalDateTime dateSaving) {
-        this.dateSaving = dateSaving;
+    public void setDatesaving(LocalDateTime datesaving) {
+        this.datesaving = datesaving;
     }
 }
