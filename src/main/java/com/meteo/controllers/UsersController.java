@@ -1,6 +1,7 @@
 package com.meteo.controllers;
 
-import com.meteo.model.User;
+import com.meteo.model.UserEntity;
+import com.meteo.repository.UserRepository;
 import com.meteo.services.UsersService;
 import com.meteo.utils.ExceptionResponse;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class UsersController {
     private Logger logger = LoggerFactory.getLogger(UsersController.class);
     private final UsersService usersService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
@@ -34,9 +39,9 @@ public class UsersController {
             @ApiResponse(code = 201, message = "Successfully created user")}
     )
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity addUsers(@Valid @RequestBody User user) {
-        usersService.addUser(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity addUsers(@Valid @RequestBody UserEntity userEntity) {
+        usersService.addUser(userEntity);
+        return new ResponseEntity<>(userEntity, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "View a list of available user", response = Iterable.class)
@@ -47,15 +52,19 @@ public class UsersController {
     )
     @GetMapping
     public ResponseEntity getUsers() {
-        List<User> users = usersService.getListUsers();
-        if (users != null) {
-            logger.info("list of users:" + users);
-            return new ResponseEntity<>(users, HttpStatus.OK);
+        List<UserEntity> userEntities = usersService.getListUsers();
+        if (userEntities != null) {
+            logger.info("list of users:" + userEntities);
+            return new ResponseEntity<>(userEntities, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
+    @GetMapping(path = "/all")
+    public @ResponseBody Iterable < UserEntity > getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    @ApiOperation(value = "find a user by its id", response = User.class)
+    @ApiOperation(value = "find a user by its id", response = UserEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
@@ -63,10 +72,10 @@ public class UsersController {
     )
     @GetMapping("/{id}")
     public ResponseEntity getUsersById(@PathVariable("id") long id) {
-        User user = usersService.findUsersById(id);
-        if (user != null) {
-            logger.info("user:" + user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+        UserEntity userEntity = usersService.findUsersById(id);
+        if (userEntity != null) {
+            logger.info("user:" + userEntity);
+            return new ResponseEntity<>(userEntity, HttpStatus.OK);
         }
         throw new ExceptionResponse();
     }
@@ -77,11 +86,11 @@ public class UsersController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")}
     )
     @PutMapping
-    public ResponseEntity updateUsers(@RequestBody User user) {
-        if (usersService.findUsersById(user.getId()) != null) {
-            logger.info("user:" + user);
-            usersService.updateUser(user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity updateUsers(@RequestBody UserEntity userEntity) {
+        if (usersService.findUsersById(userEntity.getId()) != null) {
+            logger.info("user:" + userEntity);
+            usersService.updateUser(userEntity);
+            return new ResponseEntity<>(userEntity, HttpStatus.OK);
         }
         throw new ExceptionResponse();
     }
@@ -94,8 +103,8 @@ public class UsersController {
     )
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUsers(@PathVariable("id") Long id) {
-        User user = usersService.findUsersById(id);
-        if (user != null) {
+        UserEntity userEntity = usersService.findUsersById(id);
+        if (userEntity != null) {
             usersService.deleteUser(id);
             logger.info("Deleted:");
             return new ResponseEntity(HttpStatus.OK);

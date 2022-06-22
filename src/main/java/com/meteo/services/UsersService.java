@@ -1,20 +1,20 @@
 package com.meteo.services;
 
 
-import com.meteo.model.User;
+import com.meteo.model.UserEntity;
 
 import java.util.List;
 
 public interface UsersService {
 
-    User addUser(User user);
+    UserEntity addUser(UserEntity userEntity);
 
-    List<User> getListUsers();
+    List<UserEntity> getListUsers();
 
-    User findUsersById(Long searchedId);
+    UserEntity findUsersById(Long searchedId);
 
     void deleteUser(Long id);
 
-    void updateUser(User user);
+    void updateUser(UserEntity userEntity);
 
 }

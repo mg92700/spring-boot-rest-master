@@ -2,14 +2,18 @@ package com.meteo.model;
 
 import org.springframework.beans.factory.annotation.Required;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-
-public class User {
+@Entity
+@Table(name = "user")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private static final AtomicInteger count = new AtomicInteger(-0);
 
@@ -71,10 +75,10 @@ public class User {
         this.adresse = adresse;
     }
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(Long id, String nom, String prenom, BigDecimal salaire, String adresse) {
+    public UserEntity(Long id, String nom, String prenom, BigDecimal salaire, String adresse) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -82,7 +86,7 @@ public class User {
         this.adresse = adresse;
     }
 
-    public User(String nom, String prenom, BigDecimal salaire, String adresse) {
+    public UserEntity(String nom, String prenom, BigDecimal salaire, String adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.salaire = salaire;
@@ -104,13 +108,13 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getId() == user.getId() &&
-                Objects.equals(getNom(), user.getNom()) &&
-                Objects.equals(getPrenom(), user.getPrenom()) &&
-                Objects.equals(getSalaire(), user.getSalaire()) &&
-                Objects.equals(getAdresse(), user.getAdresse());
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity userEntity = (UserEntity) o;
+        return getId() == userEntity.getId() &&
+                Objects.equals(getNom(), userEntity.getNom()) &&
+                Objects.equals(getPrenom(), userEntity.getPrenom()) &&
+                Objects.equals(getSalaire(), userEntity.getSalaire()) &&
+                Objects.equals(getAdresse(), userEntity.getAdresse());
     }
 
     @Override
