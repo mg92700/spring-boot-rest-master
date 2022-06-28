@@ -41,4 +41,6 @@ public class MeteoServiceImpl implements MeteoService{
     public void deleteMeteoById(Long id) {
         meteoRepository.deleteById(id);
     }
+
+
 }
