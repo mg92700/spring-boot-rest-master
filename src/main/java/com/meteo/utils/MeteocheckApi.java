@@ -4,10 +4,10 @@ package com.meteo.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meteo.dto.meteo.RootDto;
 import com.meteo.model.MeteoEntity;
-import net.minidev.json.JSONObject;
-import org.joda.time.LocalDateTime;
+import com.meteo.services.meteo.MeteoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,16 +18,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 @Component
 public class MeteocheckApi {
     private static final Logger log = LoggerFactory.getLogger(MeteocheckApi.class);
 
+    @Autowired
+    MeteoService meteoService;
+
     private static final String key="741820df3923c728e121957b268a43b3b270b90785ae28a4725ff671bd65a3c0";
     private static final String api="https://api.meteo-concept.com/api/forecast/nextHours?token=741820df3923c728e121957b268a43b3b270b90785ae28a4725ff671bd65a3c0&insee=93031";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     Date date = new Date();
+
     @Scheduled(fixedRate = 30000)
     public void reportCurrentTime() {
         log.info("Début traitement le {}", dateFormat.format(new Date()));
@@ -50,7 +53,7 @@ public class MeteocheckApi {
         return meteoEntity;
     }
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static void sendGET(MeteoEntity meteoEntity) throws IOException {
+    private  void sendGET(MeteoEntity meteoEntity) throws IOException {
         URL obj = new URL(api);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -69,6 +72,8 @@ public class MeteocheckApi {
             in.close();
             ObjectMapper om = new ObjectMapper();
             RootDto root = om.readValue(response.toString(), RootDto.class);
+            MeteoEntity meteo =new MeteoEntity(root);
+            meteoService.saveDepartment(meteo);
             // print result
             System.out.println(response.toString());
         } else {

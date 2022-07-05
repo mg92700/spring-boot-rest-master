@@ -1,6 +1,8 @@
 package com.meteo.model;
 
 
+import com.meteo.dto.meteo.RootDto;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Table(name = "meteo")
 public class MeteoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     private static final AtomicInteger count = new AtomicInteger(-0);
 
@@ -50,14 +52,14 @@ public class MeteoEntity {
 
     private LocalDateTime datesaving;
 
-    public MeteoEntity( Map<String,Object> map){
-        this.probarain = probarain;
-        this.probafrost = probafrost;
-        this.probafog = probafog;
-        this.probawind70 = probawind70;
-        this.probawind100 = probawind100;
-        this.tsoil1 = tsoil1;
-        this.temp2m = temp2m;
+    public MeteoEntity(RootDto rootDto){
+        this.probarain = String.valueOf(rootDto.getForecast().get(0).getProbarain());
+        this.probafrost = String.valueOf(rootDto.getForecast().get(0).getProbafrost());
+        this.probafog = String.valueOf(rootDto.getForecast().get(0).getProbafog());
+        this.probawind70 = String.valueOf(rootDto.getForecast().get(0).getProbawind70());
+        this.probawind100 = String.valueOf(rootDto.getForecast().get(0).getProbawind100());
+        this.tsoil1 = String.valueOf(rootDto.getForecast().get(0).getTsoil1());
+        this.temp2m = String.valueOf(rootDto.getForecast().get(0).getTemp2m());
         this.datesaving = LocalDateTime.now();
     }
     public MeteoEntity(String probarain, String probafrost, String probafog, String probawind70, String probawind100, String tsoil1, String temp2m) {
