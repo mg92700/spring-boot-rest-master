@@ -7,7 +7,7 @@ CREATE TABLE `meteo`.`user` (
   `prenom` VARCHAR(100) NOT NULL ,
   `salaire` INT NOT NULL ,
   `adresse` VARCHAR(100) NOT NULL ,
-  PRIMARY KEY (`iduser`));
+  PRIMARY KEY (`id`));
 
 INSERT INTO `meteo`.`user` (`id`,`nom`, `prenom`, `salaire`, `adresse`) VALUES (1,'bg', 'bg', 1, 'bg');
 
