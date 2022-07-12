@@ -33,7 +33,7 @@ public class MeteocheckApi {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     Date date = new Date();
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 60000)
     public void reportCurrentTime() {
         log.info("Début traitement le {}", dateFormat.format(new Date()));
         try {

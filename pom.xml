@@ -7,7 +7,7 @@
     <version>2.0.4.RELEASE</version>
   </parent>
   <groupId>com.meteo</groupId>
-  <artifactId>SpringBootRest</artifactId>
+  <artifactId>SpringBootRestMeteo</artifactId>
   <version>1.0-SNAPSHOT</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
